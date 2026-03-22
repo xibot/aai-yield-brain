@@ -1,0 +1,82 @@
+{
+  "treasury": {
+    "asOf": "2026-03-21T18:30:00Z",
+    "principalUsd": 5000,
+    "yieldAccruedUsd": 58.4,
+    "yieldAvailableUsd": 16.9,
+    "spentToday": {
+      "inferenceUsd": 0.12,
+      "executionUsd": 4.25
+    }
+  },
+  "tasks": [
+    {
+      "id": "yb-001",
+      "taskType": "fund_operation",
+      "goal": "Top up the AAi observability wallet for routine keepalive calls.",
+      "urgency": "low",
+      "risk": "low",
+      "estimatedValueUsd": 1.2,
+      "maxSpendUsd": 0.65,
+      "expectedGasUsd": 0.18,
+      "action": {
+        "kind": "native-transfer",
+        "chainId": 8453,
+        "asset": "ETH",
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "valueEth": "0.0002"
+      }
+    },
+    {
+      "id": "yb-002",
+      "taskType": "fund_art_action",
+      "goal": "Reserve operating capital for the next Rare SynETHsis mint or auction action.",
+      "urgency": "high",
+      "risk": "medium",
+      "estimatedValueUsd": 12.8,
+      "maxSpendUsd": 3.6,
+      "expectedGasUsd": 0.45,
+      "action": {
+        "kind": "native-transfer",
+        "chainId": 1,
+        "asset": "ETH",
+        "recipient": "0xb96B48a6B190A9d509cE9312654F34E9770F2110",
+        "valueEth": "0.0010"
+      }
+    },
+    {
+      "id": "yb-003",
+      "taskType": "swap",
+      "goal": "Rotate part of the treasury into USDC ahead of uncertain gas conditions.",
+      "urgency": "medium",
+      "risk": "high",
+      "estimatedValueUsd": 6.3,
+      "maxSpendUsd": 5.9,
+      "expectedGasUsd": 0.62,
+      "action": {
+        "kind": "swap-preview",
+        "chainId": 1,
+        "asset": "wstETH",
+        "recipient": "0x0000000000000000000000000000000000000000",
+        "route": "wstETH -> USDC"
+      }
+    },
+    {
+      "id": "yb-004",
+      "taskType": "fund_operation",
+      "goal": "Pre-fund a larger discretionary ops wallet for future experiments.",
+      "urgency": "low",
+      "risk": "medium",
+      "estimatedValueUsd": 18,
+      "maxSpendUsd": 7.05,
+      "expectedGasUsd": 0.5,
+      "action": {
+        "kind": "native-transfer",
+        "chainId": 8453,
+        "asset": "ETH",
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "valueEth": "0.0022"
+      }
+    }
+  ]
+}

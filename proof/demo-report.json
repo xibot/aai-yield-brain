@@ -1,0 +1,246 @@
+{
+  "project": "AAi Yield Brain",
+  "generatedAt": "2026-03-22T00:16:40.353Z",
+  "policyPath": "/home/ubuntu/aai-yield-brain/config/policy.example.json",
+  "scenarioPath": "/home/ubuntu/aai-yield-brain/examples/demo-scenario.json",
+  "openingTreasury": {
+    "asOf": "2026-03-21T18:30:00Z",
+    "principalUsd": 5000,
+    "yieldAccruedUsd": 58.4,
+    "yieldAvailableUsd": 16.9,
+    "spentToday": {
+      "inferenceUsd": 0.12,
+      "executionUsd": 4.25
+    }
+  },
+  "closingTreasury": {
+    "asOf": "2026-03-21T18:30:00Z",
+    "principalUsd": 5000,
+    "yieldAccruedUsd": 58.4,
+    "yieldAvailableUsd": 12.4,
+    "spentToday": {
+      "inferenceUsd": 0.57,
+      "executionUsd": 8.3
+    }
+  },
+  "totals": {
+    "tasks": 4,
+    "executed": 1,
+    "deferred": 1,
+    "rejected": 2
+  },
+  "decisions": [
+    {
+      "decidedAt": "2026-03-22T00:16:40.352Z",
+      "taskId": "yb-001",
+      "taskType": "fund_operation",
+      "decision": "reject",
+      "summary": "Reject after Classifier: net value $0.36 is below the minimum target $1.50.",
+      "selectedModel": {
+        "id": "cheap",
+        "label": "Classifier",
+        "costUsd": 0.01,
+        "confidence": 0.46
+      },
+      "economics": {
+        "expectedValueUsd": 1.2,
+        "maxSpendUsd": 0.65,
+        "expectedGasUsd": 0.18,
+        "inferenceCostUsd": 0.01,
+        "executionCostUsd": 0.8300000000000001,
+        "totalCostUsd": 0.8400000000000001,
+        "netValueUsd": 0.3599999999999999,
+        "valueMultiple": 1.4286
+      },
+      "reasons": [
+        "net value $0.36 is below the minimum target $1.50"
+      ],
+      "treasuryBefore": {
+        "asOf": "2026-03-21T18:30:00Z",
+        "principalUsd": 5000,
+        "yieldAccruedUsd": 58.4,
+        "yieldAvailableUsd": 16.9,
+        "spentToday": {
+          "inferenceUsd": 0.12,
+          "executionUsd": 4.25
+        }
+      },
+      "treasuryAfter": {
+        "asOf": "2026-03-21T18:30:00Z",
+        "principalUsd": 5000,
+        "yieldAccruedUsd": 58.4,
+        "yieldAvailableUsd": 16.89,
+        "spentToday": {
+          "inferenceUsd": 0.13,
+          "executionUsd": 4.25
+        }
+      },
+      "action": {
+        "kind": "native-transfer",
+        "chainId": 8453,
+        "asset": "ETH",
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "valueEth": "0.0002"
+      }
+    },
+    {
+      "decidedAt": "2026-03-22T00:16:40.352Z",
+      "taskId": "yb-002",
+      "taskType": "fund_art_action",
+      "decision": "execute",
+      "summary": "Execute using Planner: $12.80 expected value on $4.13 total cost.",
+      "selectedModel": {
+        "id": "planner",
+        "label": "Planner",
+        "costUsd": 0.08,
+        "confidence": 0.74
+      },
+      "economics": {
+        "expectedValueUsd": 12.8,
+        "maxSpendUsd": 3.6,
+        "expectedGasUsd": 0.45,
+        "inferenceCostUsd": 0.08,
+        "executionCostUsd": 4.05,
+        "totalCostUsd": 4.13,
+        "netValueUsd": 8.670000000000002,
+        "valueMultiple": 3.0993
+      },
+      "reasons": [
+        "task clears policy, budget, and value thresholds"
+      ],
+      "treasuryBefore": {
+        "asOf": "2026-03-21T18:30:00Z",
+        "principalUsd": 5000,
+        "yieldAccruedUsd": 58.4,
+        "yieldAvailableUsd": 16.89,
+        "spentToday": {
+          "inferenceUsd": 0.13,
+          "executionUsd": 4.25
+        }
+      },
+      "treasuryAfter": {
+        "asOf": "2026-03-21T18:30:00Z",
+        "principalUsd": 5000,
+        "yieldAccruedUsd": 58.4,
+        "yieldAvailableUsd": 12.76,
+        "spentToday": {
+          "inferenceUsd": 0.21,
+          "executionUsd": 8.3
+        }
+      },
+      "action": {
+        "kind": "native-transfer",
+        "chainId": 1,
+        "asset": "ETH",
+        "recipient": "0xb96B48a6B190A9d509cE9312654F34E9770F2110",
+        "valueEth": "0.0010"
+      }
+    },
+    {
+      "decidedAt": "2026-03-22T00:16:40.352Z",
+      "taskId": "yb-003",
+      "taskType": "swap",
+      "decision": "reject",
+      "summary": "Reject after Critic: net value $-0.40 is below the minimum target $1.50.",
+      "selectedModel": {
+        "id": "critic",
+        "label": "Critic",
+        "costUsd": 0.18,
+        "confidence": 0.9
+      },
+      "economics": {
+        "expectedValueUsd": 6.3,
+        "maxSpendUsd": 5.9,
+        "expectedGasUsd": 0.62,
+        "inferenceCostUsd": 0.18,
+        "executionCostUsd": 6.5200000000000005,
+        "totalCostUsd": 6.7,
+        "netValueUsd": -0.40000000000000036,
+        "valueMultiple": 0.9403
+      },
+      "reasons": [
+        "net value $-0.40 is below the minimum target $1.50"
+      ],
+      "treasuryBefore": {
+        "asOf": "2026-03-21T18:30:00Z",
+        "principalUsd": 5000,
+        "yieldAccruedUsd": 58.4,
+        "yieldAvailableUsd": 12.76,
+        "spentToday": {
+          "inferenceUsd": 0.21,
+          "executionUsd": 8.3
+        }
+      },
+      "treasuryAfter": {
+        "asOf": "2026-03-21T18:30:00Z",
+        "principalUsd": 5000,
+        "yieldAccruedUsd": 58.4,
+        "yieldAvailableUsd": 12.58,
+        "spentToday": {
+          "inferenceUsd": 0.39,
+          "executionUsd": 8.3
+        }
+      },
+      "action": {
+        "kind": "swap-preview",
+        "chainId": 1,
+        "asset": "wstETH",
+        "recipient": "0x0000000000000000000000000000000000000000",
+        "route": "wstETH -> USDC"
+      }
+    },
+    {
+      "decidedAt": "2026-03-22T00:16:40.353Z",
+      "taskId": "yb-004",
+      "taskType": "fund_operation",
+      "decision": "defer",
+      "summary": "Defer after Critic: the task is attractive, but it would compress the yield buffer too far.",
+      "selectedModel": {
+        "id": "critic",
+        "label": "Critic",
+        "costUsd": 0.18,
+        "confidence": 0.9
+      },
+      "economics": {
+        "expectedValueUsd": 18,
+        "maxSpendUsd": 7.05,
+        "expectedGasUsd": 0.5,
+        "inferenceCostUsd": 0.18,
+        "executionCostUsd": 7.55,
+        "totalCostUsd": 7.7299999999999995,
+        "netValueUsd": 10.27,
+        "valueMultiple": 2.3286
+      },
+      "reasons": [
+        "executing now would leave only $4.85 in yield, below the buffer target $12.00"
+      ],
+      "treasuryBefore": {
+        "asOf": "2026-03-21T18:30:00Z",
+        "principalUsd": 5000,
+        "yieldAccruedUsd": 58.4,
+        "yieldAvailableUsd": 12.58,
+        "spentToday": {
+          "inferenceUsd": 0.39,
+          "executionUsd": 8.3
+        }
+      },
+      "treasuryAfter": {
+        "asOf": "2026-03-21T18:30:00Z",
+        "principalUsd": 5000,
+        "yieldAccruedUsd": 58.4,
+        "yieldAvailableUsd": 12.4,
+        "spentToday": {
+          "inferenceUsd": 0.57,
+          "executionUsd": 8.3
+        }
+      },
+      "action": {
+        "kind": "native-transfer",
+        "chainId": 8453,
+        "asset": "ETH",
+        "recipient": "0x1111111111111111111111111111111111111111",
+        "valueEth": "0.0022"
+      }
+    }
+  ]
+}

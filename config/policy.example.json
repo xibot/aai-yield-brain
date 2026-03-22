@@ -1,0 +1,42 @@
+{
+  "project": "AAi Yield Brain",
+  "reserveFloorUsd": 5000,
+  "minYieldBufferUsd": 12,
+  "dailyInferenceBudgetUsd": 1.5,
+  "dailyExecutionBudgetUsd": 20,
+  "maxSingleActionUsd": 8,
+  "minNetValueUsd": 1.5,
+  "minValueMultiple": 1.25,
+  "allowTaskTypes": ["fund_operation", "fund_art_action", "swap"],
+  "allowAssets": ["ETH", "USDC", "wstETH"],
+  "allowRecipients": [
+    {
+      "label": "Rare SynETHsis Ops",
+      "address": "0xb96B48a6B190A9d509cE9312654F34E9770F2110"
+    },
+    {
+      "label": "AAi Treasury Hot Wallet",
+      "address": "0x1111111111111111111111111111111111111111"
+    }
+  ],
+  "modelTiers": [
+    {
+      "id": "cheap",
+      "label": "Classifier",
+      "costUsd": 0.01,
+      "confidence": 0.46
+    },
+    {
+      "id": "planner",
+      "label": "Planner",
+      "costUsd": 0.08,
+      "confidence": 0.74
+    },
+    {
+      "id": "critic",
+      "label": "Critic",
+      "costUsd": 0.18,
+      "confidence": 0.9
+    }
+  ]
+}
