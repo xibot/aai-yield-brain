@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "treasury": "node scripts/derive-treasury.mjs",
+    "balances": "node scripts/read-wallet-balances.mjs",
     "demo": "node scripts/run-demo.mjs",
     "demo:proof": "node scripts/run-demo.mjs --out proof/demo-report.json",
     "task": "node scripts/run-task.mjs"

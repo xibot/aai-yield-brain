@@ -1,8 +1,51 @@
 {
   "project": "Yield Brain",
-  "generatedAt": "2026-03-22T01:37:17.274Z",
+  "generatedAt": "2026-03-22T01:59:54.877Z",
   "policyPath": "/home/ubuntu/aai-yield-brain/config/policy.example.json",
   "scenarioPath": "/home/ubuntu/aai-yield-brain/examples/demo-scenario.json",
+  "operatingControls": {
+    "mode": "shadow",
+    "pauseSwitch": false
+  },
+  "policySummary": {
+    "operatingMode": "shadow",
+    "pauseSwitch": false,
+    "reserveFloorUsd": 5000,
+    "minYieldBufferUsd": 12,
+    "dailyInferenceBudgetUsd": 1.5,
+    "dailyExecutionBudgetUsd": 20,
+    "maxSingleActionUsd": 8,
+    "minNetValueUsd": 1.5,
+    "minValueMultiple": 1.25
+  },
+  "walletSnapshots": [
+    {
+      "id": "revenueWallet",
+      "label": "Revenue Wallet",
+      "role": "revenue",
+      "address": "0xb96B48a6B190A9d509cE9312654F34E9770F2110",
+      "chainId": 1,
+      "asset": "ETH",
+      "readAt": "2026-03-22T01:59:54.310Z",
+      "status": "ok",
+      "balanceWei": "0x16b6bc6792722a1",
+      "balanceEth": "0.102293916726272673",
+      "blockNumber": 24709923
+    },
+    {
+      "id": "treasuryTestWallet",
+      "label": "Treasury Test Wallet",
+      "role": "treasury_test",
+      "address": "0x8BE974bC760bea450A733c58B051c14F723ce79C",
+      "chainId": 8453,
+      "asset": "ETH",
+      "readAt": "2026-03-22T01:59:54.342Z",
+      "status": "ok",
+      "balanceWei": "0x14b0b17aa6d2d2",
+      "balanceEth": "0.005823775847666386",
+      "blockNumber": 43677723
+    }
+  ],
   "openingTreasury": {
     "asOf": "2026-03-21T18:30:00Z",
     "principalUsd": 5000,
@@ -97,9 +140,32 @@
   },
   "decisions": [
     {
-      "decidedAt": "2026-03-22T01:37:17.274Z",
+      "receiptId": "yb-001-2026-03-22T01-59-54.875Z",
+      "project": "Yield Brain",
+      "decidedAt": "2026-03-22T01:59:54.875Z",
+      "policySummary": {
+        "operatingMode": "shadow",
+        "pauseSwitch": false,
+        "reserveFloorUsd": 5000,
+        "minYieldBufferUsd": 12,
+        "dailyInferenceBudgetUsd": 1.5,
+        "dailyExecutionBudgetUsd": 20,
+        "maxSingleActionUsd": 8,
+        "minNetValueUsd": 1.5,
+        "minValueMultiple": 1.25
+      },
+      "mode": "shadow",
+      "pauseSwitch": false,
+      "broadcastRequested": false,
+      "broadcastAllowed": false,
+      "broadcastExecuted": false,
+      "broadcastSkippedReason": "shadow mode does not broadcast",
+      "walletSnapshots": [],
       "taskId": "yb-001",
       "taskType": "fund_operation",
+      "goal": "Top up the Treasury Test Wallet for routine keepalive calls.",
+      "urgency": "low",
+      "risk": "low",
       "decision": "reject",
       "summary": "Reject after Classifier: net value $0.36 is below the minimum target $1.50.",
       "selectedModel": {
@@ -118,8 +184,54 @@
         "netValueUsd": 0.3599999999999999,
         "valueMultiple": 1.4286
       },
+      "budgets": {
+        "remainingInferenceBudgetUsd": 1.38,
+        "remainingExecutionBudgetUsd": 15.75,
+        "yieldAvailableUsd": 16.9,
+        "minYieldBufferUsd": 12
+      },
       "reasons": [
         "net value $0.36 is below the minimum target $1.50"
+      ],
+      "treasuryDelta": {
+        "inferenceSpentUsd": 0.01,
+        "executionSpentUsd": 0,
+        "yieldAvailableUsd": -0.01
+      },
+      "sourceDeltas": [
+        {
+          "id": "protocol_fees",
+          "type": "protocol-fees",
+          "spendPriority": 1,
+          "spendableYieldUsdBefore": 4.8,
+          "spendableYieldUsdAfter": 4.79,
+          "spendableYieldUsdDelta": -0.01,
+          "accruedYieldUsdBefore": 4.8,
+          "accruedYieldUsdAfter": 4.79,
+          "accruedYieldUsdDelta": -0.01
+        },
+        {
+          "id": "art_surplus",
+          "type": "art-proceeds",
+          "spendPriority": 2,
+          "spendableYieldUsdBefore": 2.2,
+          "spendableYieldUsdAfter": 2.2,
+          "spendableYieldUsdDelta": 0,
+          "accruedYieldUsdBefore": 2.2,
+          "accruedYieldUsdAfter": 2.2,
+          "accruedYieldUsdDelta": 0
+        },
+        {
+          "id": "wsteth_core_yield",
+          "type": "wstETH-yield",
+          "spendPriority": 3,
+          "spendableYieldUsdBefore": 9.9,
+          "spendableYieldUsdAfter": 9.9,
+          "spendableYieldUsdDelta": 0,
+          "accruedYieldUsdBefore": 11.4,
+          "accruedYieldUsdAfter": 11.4,
+          "accruedYieldUsdDelta": 0
+        }
       ],
       "treasuryBefore": {
         "asOf": "2026-03-21T18:30:00Z",
@@ -213,12 +325,36 @@
         "asset": "ETH",
         "recipient": "0x8BE974bC760bea450A733c58B051c14F723ce79C",
         "valueEth": "0.0002"
-      }
+      },
+      "liveExecution": null
     },
     {
-      "decidedAt": "2026-03-22T01:37:17.274Z",
+      "receiptId": "yb-002-2026-03-22T01-59-54.876Z",
+      "project": "Yield Brain",
+      "decidedAt": "2026-03-22T01:59:54.876Z",
+      "policySummary": {
+        "operatingMode": "shadow",
+        "pauseSwitch": false,
+        "reserveFloorUsd": 5000,
+        "minYieldBufferUsd": 12,
+        "dailyInferenceBudgetUsd": 1.5,
+        "dailyExecutionBudgetUsd": 20,
+        "maxSingleActionUsd": 8,
+        "minNetValueUsd": 1.5,
+        "minValueMultiple": 1.25
+      },
+      "mode": "shadow",
+      "pauseSwitch": false,
+      "broadcastRequested": false,
+      "broadcastAllowed": false,
+      "broadcastExecuted": false,
+      "broadcastSkippedReason": "shadow mode does not broadcast",
+      "walletSnapshots": [],
       "taskId": "yb-002",
       "taskType": "fund_art_action",
+      "goal": "Reserve operating capital for the next Rare SynETHsis mint or auction action.",
+      "urgency": "high",
+      "risk": "medium",
       "decision": "execute",
       "summary": "Execute using Planner: $12.80 expected value on $4.13 total cost.",
       "selectedModel": {
@@ -237,8 +373,54 @@
         "netValueUsd": 8.670000000000002,
         "valueMultiple": 3.0993
       },
+      "budgets": {
+        "remainingInferenceBudgetUsd": 1.37,
+        "remainingExecutionBudgetUsd": 15.75,
+        "yieldAvailableUsd": 16.89,
+        "minYieldBufferUsd": 12
+      },
       "reasons": [
         "task clears policy, budget, and value thresholds"
+      ],
+      "treasuryDelta": {
+        "inferenceSpentUsd": 0.08,
+        "executionSpentUsd": 4.05,
+        "yieldAvailableUsd": -4.13
+      },
+      "sourceDeltas": [
+        {
+          "id": "protocol_fees",
+          "type": "protocol-fees",
+          "spendPriority": 1,
+          "spendableYieldUsdBefore": 4.79,
+          "spendableYieldUsdAfter": 0.66,
+          "spendableYieldUsdDelta": -4.13,
+          "accruedYieldUsdBefore": 4.79,
+          "accruedYieldUsdAfter": 0.66,
+          "accruedYieldUsdDelta": -4.13
+        },
+        {
+          "id": "art_surplus",
+          "type": "art-proceeds",
+          "spendPriority": 2,
+          "spendableYieldUsdBefore": 2.2,
+          "spendableYieldUsdAfter": 2.2,
+          "spendableYieldUsdDelta": 0,
+          "accruedYieldUsdBefore": 2.2,
+          "accruedYieldUsdAfter": 2.2,
+          "accruedYieldUsdDelta": 0
+        },
+        {
+          "id": "wsteth_core_yield",
+          "type": "wstETH-yield",
+          "spendPriority": 3,
+          "spendableYieldUsdBefore": 9.9,
+          "spendableYieldUsdAfter": 9.9,
+          "spendableYieldUsdDelta": 0,
+          "accruedYieldUsdBefore": 11.4,
+          "accruedYieldUsdAfter": 11.4,
+          "accruedYieldUsdDelta": 0
+        }
       ],
       "treasuryBefore": {
         "asOf": "2026-03-21T18:30:00Z",
@@ -332,12 +514,36 @@
         "asset": "ETH",
         "recipient": "0xb96B48a6B190A9d509cE9312654F34E9770F2110",
         "valueEth": "0.0010"
-      }
+      },
+      "liveExecution": null
     },
     {
-      "decidedAt": "2026-03-22T01:37:17.274Z",
+      "receiptId": "yb-003-2026-03-22T01-59-54.877Z",
+      "project": "Yield Brain",
+      "decidedAt": "2026-03-22T01:59:54.877Z",
+      "policySummary": {
+        "operatingMode": "shadow",
+        "pauseSwitch": false,
+        "reserveFloorUsd": 5000,
+        "minYieldBufferUsd": 12,
+        "dailyInferenceBudgetUsd": 1.5,
+        "dailyExecutionBudgetUsd": 20,
+        "maxSingleActionUsd": 8,
+        "minNetValueUsd": 1.5,
+        "minValueMultiple": 1.25
+      },
+      "mode": "shadow",
+      "pauseSwitch": false,
+      "broadcastRequested": false,
+      "broadcastAllowed": false,
+      "broadcastExecuted": false,
+      "broadcastSkippedReason": "shadow mode does not broadcast",
+      "walletSnapshots": [],
       "taskId": "yb-003",
       "taskType": "swap",
+      "goal": "Rotate part of the treasury into USDC ahead of uncertain gas conditions.",
+      "urgency": "medium",
+      "risk": "high",
       "decision": "reject",
       "summary": "Reject after Critic: net value $-0.40 is below the minimum target $1.50.",
       "selectedModel": {
@@ -356,8 +562,54 @@
         "netValueUsd": -0.40000000000000036,
         "valueMultiple": 0.9403
       },
+      "budgets": {
+        "remainingInferenceBudgetUsd": 1.29,
+        "remainingExecutionBudgetUsd": 11.7,
+        "yieldAvailableUsd": 12.76,
+        "minYieldBufferUsd": 12
+      },
       "reasons": [
         "net value $-0.40 is below the minimum target $1.50"
+      ],
+      "treasuryDelta": {
+        "inferenceSpentUsd": 0.18,
+        "executionSpentUsd": 0,
+        "yieldAvailableUsd": -0.18
+      },
+      "sourceDeltas": [
+        {
+          "id": "protocol_fees",
+          "type": "protocol-fees",
+          "spendPriority": 1,
+          "spendableYieldUsdBefore": 0.66,
+          "spendableYieldUsdAfter": 0.48,
+          "spendableYieldUsdDelta": -0.18,
+          "accruedYieldUsdBefore": 0.66,
+          "accruedYieldUsdAfter": 0.48,
+          "accruedYieldUsdDelta": -0.18
+        },
+        {
+          "id": "art_surplus",
+          "type": "art-proceeds",
+          "spendPriority": 2,
+          "spendableYieldUsdBefore": 2.2,
+          "spendableYieldUsdAfter": 2.2,
+          "spendableYieldUsdDelta": 0,
+          "accruedYieldUsdBefore": 2.2,
+          "accruedYieldUsdAfter": 2.2,
+          "accruedYieldUsdDelta": 0
+        },
+        {
+          "id": "wsteth_core_yield",
+          "type": "wstETH-yield",
+          "spendPriority": 3,
+          "spendableYieldUsdBefore": 9.9,
+          "spendableYieldUsdAfter": 9.9,
+          "spendableYieldUsdDelta": 0,
+          "accruedYieldUsdBefore": 11.4,
+          "accruedYieldUsdAfter": 11.4,
+          "accruedYieldUsdDelta": 0
+        }
       ],
       "treasuryBefore": {
         "asOf": "2026-03-21T18:30:00Z",
@@ -451,12 +703,36 @@
         "asset": "wstETH",
         "recipient": "0x0000000000000000000000000000000000000000",
         "route": "wstETH -> USDC"
-      }
+      },
+      "liveExecution": null
     },
     {
-      "decidedAt": "2026-03-22T01:37:17.274Z",
+      "receiptId": "yb-004-2026-03-22T01-59-54.877Z",
+      "project": "Yield Brain",
+      "decidedAt": "2026-03-22T01:59:54.877Z",
+      "policySummary": {
+        "operatingMode": "shadow",
+        "pauseSwitch": false,
+        "reserveFloorUsd": 5000,
+        "minYieldBufferUsd": 12,
+        "dailyInferenceBudgetUsd": 1.5,
+        "dailyExecutionBudgetUsd": 20,
+        "maxSingleActionUsd": 8,
+        "minNetValueUsd": 1.5,
+        "minValueMultiple": 1.25
+      },
+      "mode": "shadow",
+      "pauseSwitch": false,
+      "broadcastRequested": false,
+      "broadcastAllowed": false,
+      "broadcastExecuted": false,
+      "broadcastSkippedReason": "shadow mode does not broadcast",
+      "walletSnapshots": [],
       "taskId": "yb-004",
       "taskType": "fund_operation",
+      "goal": "Pre-fund the Treasury Test Wallet for future experiments.",
+      "urgency": "low",
+      "risk": "medium",
       "decision": "defer",
       "summary": "Defer after Critic: the task is attractive, but it would compress the yield buffer too far.",
       "selectedModel": {
@@ -475,8 +751,54 @@
         "netValueUsd": 10.27,
         "valueMultiple": 2.3286
       },
+      "budgets": {
+        "remainingInferenceBudgetUsd": 1.11,
+        "remainingExecutionBudgetUsd": 11.7,
+        "yieldAvailableUsd": 12.58,
+        "minYieldBufferUsd": 12
+      },
       "reasons": [
         "executing now would leave only $4.85 in yield, below the buffer target $12.00"
+      ],
+      "treasuryDelta": {
+        "inferenceSpentUsd": 0.18,
+        "executionSpentUsd": 0,
+        "yieldAvailableUsd": -0.18
+      },
+      "sourceDeltas": [
+        {
+          "id": "protocol_fees",
+          "type": "protocol-fees",
+          "spendPriority": 1,
+          "spendableYieldUsdBefore": 0.48,
+          "spendableYieldUsdAfter": 0.3,
+          "spendableYieldUsdDelta": -0.18,
+          "accruedYieldUsdBefore": 0.48,
+          "accruedYieldUsdAfter": 0.3,
+          "accruedYieldUsdDelta": -0.18
+        },
+        {
+          "id": "art_surplus",
+          "type": "art-proceeds",
+          "spendPriority": 2,
+          "spendableYieldUsdBefore": 2.2,
+          "spendableYieldUsdAfter": 2.2,
+          "spendableYieldUsdDelta": 0,
+          "accruedYieldUsdBefore": 2.2,
+          "accruedYieldUsdAfter": 2.2,
+          "accruedYieldUsdDelta": 0
+        },
+        {
+          "id": "wsteth_core_yield",
+          "type": "wstETH-yield",
+          "spendPriority": 3,
+          "spendableYieldUsdBefore": 9.9,
+          "spendableYieldUsdAfter": 9.9,
+          "spendableYieldUsdDelta": 0,
+          "accruedYieldUsdBefore": 11.4,
+          "accruedYieldUsdAfter": 11.4,
+          "accruedYieldUsdDelta": 0
+        }
       ],
       "treasuryBefore": {
         "asOf": "2026-03-21T18:30:00Z",
@@ -570,7 +892,8 @@
         "asset": "ETH",
         "recipient": "0x8BE974bC760bea450A733c58B051c14F723ce79C",
         "valueEth": "0.0022"
-      }
+      },
+      "liveExecution": null
     }
   ]
 }

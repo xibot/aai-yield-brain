@@ -42,7 +42,7 @@
     {
       "id": "yb-001",
       "taskType": "fund_operation",
-      "goal": "Top up the AAi observability wallet for routine keepalive calls.",
+      "goal": "Top up the Treasury Test Wallet for routine keepalive calls.",
       "urgency": "low",
       "risk": "low",
       "estimatedValueUsd": 1.2,
@@ -93,7 +93,7 @@
     {
       "id": "yb-004",
       "taskType": "fund_operation",
-      "goal": "Pre-fund a larger discretionary ops wallet for future experiments.",
+      "goal": "Pre-fund the Treasury Test Wallet for future experiments.",
       "urgency": "low",
       "risk": "medium",
       "estimatedValueUsd": 18,

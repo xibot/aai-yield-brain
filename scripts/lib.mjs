@@ -53,6 +53,35 @@ export function parseArgs(argv) {
   return args;
 }
 
+export function resolveOperatingMode(policy, args = {}) {
+  const requested = String(args.mode ?? policy.operatingMode ?? (args.broadcast ? "live" : "shadow")).toLowerCase();
+  return requested === "live" ? "live" : "shadow";
+}
+
+export function resolvePauseSwitch(policy, args = {}) {
+  if (args.paused === true) {
+    return true;
+  }
+  if (args.unpaused === true) {
+    return false;
+  }
+  return Boolean(policy.pauseSwitch);
+}
+
+export function buildPolicySummary(policy) {
+  return {
+    operatingMode: policy.operatingMode ?? "shadow",
+    pauseSwitch: Boolean(policy.pauseSwitch),
+    reserveFloorUsd: Number(policy.reserveFloorUsd ?? 0),
+    minYieldBufferUsd: Number(policy.minYieldBufferUsd ?? 0),
+    dailyInferenceBudgetUsd: Number(policy.dailyInferenceBudgetUsd ?? 0),
+    dailyExecutionBudgetUsd: Number(policy.dailyExecutionBudgetUsd ?? 0),
+    maxSingleActionUsd: Number(policy.maxSingleActionUsd ?? 0),
+    minNetValueUsd: Number(policy.minNetValueUsd ?? 0),
+    minValueMultiple: Number(policy.minValueMultiple ?? 0)
+  };
+}
+
 function normalizeSource(source) {
   return {
     id: source.id,
@@ -302,18 +331,64 @@ export function applyDecision(treasury, decision) {
   return recomputeTreasuryTotals(next);
 }
 
-export function buildReceipt(decision, treasuryBefore, treasuryAfter) {
+export function calculateSourceDeltas(treasuryBefore, treasuryAfter) {
+  const beforeMap = new Map((treasuryBefore.sources ?? []).map((source) => [source.id, source]));
+  const afterMap = new Map((treasuryAfter.sources ?? []).map((source) => [source.id, source]));
+  const ids = new Set([...beforeMap.keys(), ...afterMap.keys()]);
+
+  return [...ids]
+    .map((id) => {
+      const before = beforeMap.get(id) ?? { spendableYieldUsd: 0, accruedYieldUsd: 0, spendPriority: 999, type: "unknown" };
+      const after = afterMap.get(id) ?? { spendableYieldUsd: 0, accruedYieldUsd: 0, spendPriority: before.spendPriority ?? 999, type: before.type ?? "unknown" };
+      return {
+        id,
+        type: after.type ?? before.type,
+        spendPriority: Number(after.spendPriority ?? before.spendPriority ?? 999),
+        spendableYieldUsdBefore: Number(before.spendableYieldUsd ?? 0),
+        spendableYieldUsdAfter: Number(after.spendableYieldUsd ?? 0),
+        spendableYieldUsdDelta: Number((Number(after.spendableYieldUsd ?? 0) - Number(before.spendableYieldUsd ?? 0)).toFixed(4)),
+        accruedYieldUsdBefore: Number(before.accruedYieldUsd ?? 0),
+        accruedYieldUsdAfter: Number(after.accruedYieldUsd ?? 0),
+        accruedYieldUsdDelta: Number((Number(after.accruedYieldUsd ?? 0) - Number(before.accruedYieldUsd ?? 0)).toFixed(4))
+      };
+    })
+    .sort((a, b) => Number(a.spendPriority) - Number(b.spendPriority));
+}
+
+export function buildReceipt(decision, treasuryBefore, treasuryAfter, context = {}) {
+  const sourceDeltas = calculateSourceDeltas(treasuryBefore, treasuryAfter);
   return {
-    decidedAt: new Date().toISOString(),
+    receiptId: context.receiptId ?? `${decision.taskId}-${timestampSlug()}`,
+    project: context.project ?? null,
+    decidedAt: context.decidedAt ?? new Date().toISOString(),
+    policySummary: context.policySummary ?? null,
+    mode: context.mode ?? "shadow",
+    pauseSwitch: Boolean(context.pauseSwitch),
+    broadcastRequested: Boolean(context.broadcastRequested),
+    broadcastAllowed: Boolean(context.broadcastAllowed),
+    broadcastExecuted: Boolean(context.broadcastExecuted),
+    broadcastSkippedReason: context.broadcastSkippedReason ?? null,
+    walletSnapshots: context.walletSnapshots ?? [],
     taskId: decision.taskId,
     taskType: decision.taskType,
+    goal: decision.goal,
+    urgency: decision.urgency,
+    risk: decision.risk,
     decision: decision.decision,
     summary: decision.summary,
     selectedModel: decision.selectedModel,
     economics: decision.economics,
+    budgets: decision.budgets,
     reasons: decision.reasons,
+    treasuryDelta: {
+      inferenceSpentUsd: Number((Number(treasuryAfter.spentToday.inferenceUsd ?? 0) - Number(treasuryBefore.spentToday.inferenceUsd ?? 0)).toFixed(4)),
+      executionSpentUsd: Number((Number(treasuryAfter.spentToday.executionUsd ?? 0) - Number(treasuryBefore.spentToday.executionUsd ?? 0)).toFixed(4)),
+      yieldAvailableUsd: Number((Number(treasuryAfter.yieldAvailableUsd ?? 0) - Number(treasuryBefore.yieldAvailableUsd ?? 0)).toFixed(4))
+    },
+    sourceDeltas,
     treasuryBefore,
     treasuryAfter,
-    action: decision.action
+    action: decision.action,
+    liveExecution: context.liveExecution ?? null
   };
 }

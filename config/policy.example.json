@@ -1,5 +1,7 @@
 {
   "project": "Yield Brain",
+  "operatingMode": "shadow",
+  "pauseSwitch": false,
   "reserveFloorUsd": 5000,
   "minYieldBufferUsd": 12,
   "dailyInferenceBudgetUsd": 1.5,
@@ -27,6 +29,22 @@
       "address": "0x8BE974bC760bea450A733c58B051c14F723ce79C"
     }
   ],
+  "wallets": {
+    "revenueWallet": {
+      "label": "Revenue Wallet",
+      "role": "revenue",
+      "address": "0xb96B48a6B190A9d509cE9312654F34E9770F2110",
+      "chainId": 1,
+      "asset": "ETH"
+    },
+    "treasuryTestWallet": {
+      "label": "Treasury Test Wallet",
+      "role": "treasury_test",
+      "address": "0x8BE974bC760bea450A733c58B051c14F723ce79C",
+      "chainId": 8453,
+      "asset": "ETH"
+    }
+  },
   "modelTiers": [
     {
       "id": "cheap",

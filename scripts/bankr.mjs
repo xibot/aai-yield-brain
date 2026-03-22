@@ -8,6 +8,19 @@ const BANKR_CONFIG_PATHS = [
   path.join(process.env.HOME ?? "", ".bankr", "config.json")
 ];
 
+const DEFAULT_RPC_URLS = {
+  1: [
+    "https://ethereum-rpc.publicnode.com",
+    "https://cloudflare-eth.com",
+    "https://eth.llamarpc.com"
+  ],
+  8453: [
+    "https://mainnet.base.org",
+    "https://base-rpc.publicnode.com",
+    "https://base.llamarpc.com"
+  ]
+};
+
 function readJsonConfig(filePath) {
   if (!filePath || !fs.existsSync(filePath)) {
     return null;
@@ -62,6 +75,119 @@ export function ethToWei(value) {
   return (BigInt(normalizedWhole) * 10n ** 18n + BigInt(normalizedFraction)).toString();
 }
 
+function parseRpcUrlList(value) {
+  return String(value ?? "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
+export function rpcUrlsForChain(chainId) {
+  if (chainId === 1) {
+    return [
+      ...parseRpcUrlList(process.env.ETH_RPC_URL ?? process.env.MAINNET_RPC_URL),
+      ...DEFAULT_RPC_URLS[1]
+    ];
+  }
+  if (chainId === 8453) {
+    return [
+      ...parseRpcUrlList(process.env.BASE_RPC_URL),
+      ...DEFAULT_RPC_URLS[8453]
+    ];
+  }
+  return [];
+}
+
+async function rpcRequest(chainId, method, params = []) {
+  const rpcUrls = rpcUrlsForChain(chainId);
+  if (rpcUrls.length === 0) {
+    throw new Error(`No RPC URL configured for chain ${chainId}`);
+  }
+
+  const errors = [];
+  for (const rpcUrl of rpcUrls) {
+    try {
+      const response = await fetch(rpcUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          jsonrpc: "2.0",
+          id: 1,
+          method,
+          params
+        })
+      });
+
+      const rawText = await response.text();
+      let payload;
+      try {
+        payload = JSON.parse(rawText);
+      } catch {
+        throw new Error(`non-JSON response (${rawText.slice(0, 120)})`);
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} ${response.statusText}`);
+      }
+      if (payload?.error) {
+        throw new Error(JSON.stringify(payload.error));
+      }
+      return payload.result;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      errors.push(`${rpcUrl} => ${message}`);
+    }
+  }
+
+  throw new Error(`RPC ${method} failed on chain ${chainId}: ${errors.join(" | ")}`);
+}
+
+export function formatWeiToEth(value) {
+  const wei = typeof value === "string" && value.startsWith("0x") ? BigInt(value) : BigInt(value ?? 0);
+  const whole = wei / 10n ** 18n;
+  const fraction = (wei % 10n ** 18n).toString().padStart(18, "0").replace(/0+$/, "");
+  return fraction ? `${whole.toString()}.${fraction}` : whole.toString();
+}
+
+export async function readNativeBalance({ id, label, address, chainId, asset = "ETH", role = null }) {
+  const snapshot = {
+    id: id ?? null,
+    label,
+    role,
+    address,
+    chainId: Number(chainId),
+    asset,
+    readAt: new Date().toISOString(),
+    status: "ok"
+  };
+
+  try {
+    const [balanceWei, blockNumberHex] = await Promise.all([
+      rpcRequest(Number(chainId), "eth_getBalance", [address, "latest"]),
+      rpcRequest(Number(chainId), "eth_blockNumber", [])
+    ]);
+    snapshot.balanceWei = balanceWei;
+    snapshot.balanceEth = formatWeiToEth(balanceWei);
+    snapshot.blockNumber = Number(BigInt(blockNumberHex));
+  } catch (error) {
+    snapshot.status = "error";
+    snapshot.error = error instanceof Error ? error.message : String(error);
+  }
+
+  return snapshot;
+}
+
+export async function readPolicyWalletSnapshots(policy) {
+  const entries = Object.entries(policy.wallets ?? {}).map(([id, wallet]) => ({ id, ...wallet }));
+  if (entries.length === 0) {
+    return [];
+  }
+
+  return Promise.all(entries.map((wallet) => readNativeBalance(wallet)));
+}
+
 export async function submitBankrTransaction({ to, chainId, valueWei, data = "0x", description, waitForConfirmation = true }) {
   const { apiKey, apiUrl } = resolveBankrConfig();
   const response = await fetch(`${apiUrl}/agent/submit`, {
@@ -93,39 +219,17 @@ export async function submitBankrTransaction({ to, chainId, valueWei, data = "0x
   };
 }
 
-function rpcUrlForChain(chainId) {
-  if (chainId === 1) {
-    return process.env.ETH_RPC_URL ?? null;
-  }
-  if (chainId === 8453) {
-    return process.env.BASE_RPC_URL ?? null;
-  }
-  return null;
-}
-
 export async function waitForReceipt(chainId, txHash, timeoutMs = 180000, pollMs = 4000) {
-  const rpcUrl = rpcUrlForChain(chainId);
-  if (!rpcUrl) {
+  const rpcUrls = rpcUrlsForChain(chainId);
+  if (rpcUrls.length === 0) {
     return null;
   }
 
   const start = Date.now();
   while (true) {
-    const response = await fetch(rpcUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        jsonrpc: "2.0",
-        id: 1,
-        method: "eth_getTransactionReceipt",
-        params: [txHash]
-      })
-    });
-    const payload = await response.json();
-    if (payload?.result) {
-      return payload.result;
+    const result = await rpcRequest(chainId, "eth_getTransactionReceipt", [txHash]);
+    if (result) {
+      return result;
     }
 
     if (Date.now() - start >= timeoutMs) {

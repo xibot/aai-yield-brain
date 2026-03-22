@@ -12,6 +12,14 @@ This project is a strong candidate for a third Synthesis / Bankr submission beca
 
 ## Core idea
 
+Yield Brain now includes four product features that make the MVP feel much more real:
+
+- `shadow` / `live` operating modes
+- a policy-level pause switch
+- real wallet balance snapshots for tracked wallets
+- richer decision receipts with controls + source deltas
+
+
 Inside `aaigotchi`, we separate three concerns:
 
 1. `aaigotchi` is the agent identity and goal layer.
@@ -97,11 +105,12 @@ No dependencies are required for the local demo beyond Node.js 18+.
 ```bash
 cd /home/ubuntu/aai-yield-brain
 npm run treasury
+npm run balances
 npm run demo
 npm run demo:proof
 ```
 
-That will derive the current treasury and then evaluate the sample task queue into `outputs/` or `proof/demo-report.json`.
+That will derive the treasury, read live wallet balances for the tracked wallets, and then evaluate the sample task queue into `outputs/` or `proof/demo-report.json`.
 
 ## Demo scenario
 
@@ -113,6 +122,27 @@ The sample scenario demonstrates four different outcomes:
 4. a larger low-urgency funding task that gets deferred to protect the yield buffer
 
 This is the behavior we want: `aaigotchi` should not spend just because it can.
+
+## Operating controls
+
+The policy now supports two operating controls:
+
+- `operatingMode`: `shadow` or `live`
+- `pauseSwitch`: when `true`, all broadcasts are blocked even in `live` mode
+
+`shadow` mode is the safe default. It evaluates tasks, updates simulated treasury state, and produces receipts without sending any transaction.
+
+Use live evaluation without broadcasting:
+
+```bash
+node scripts/run-task.mjs --task-id yb-002 --mode live
+```
+
+Only request broadcast when you explicitly want a live action and the pause switch is off:
+
+```bash
+node scripts/run-task.mjs --task-id yb-002 --mode live --broadcast
+```
 
 ## Live Bankr path
 
@@ -139,6 +169,20 @@ Current live constraint:
 
 - only `native-transfer` tasks are broadcastable in this MVP
 - swap-like tasks can still be evaluated and logged, but not broadcast yet
+- live broadcasts are blocked automatically when `pauseSwitch` is enabled
+
+## Tracked wallets
+
+The repo now tracks live native balances for:
+
+- `Revenue Wallet` on Ethereum mainnet
+- `Treasury Test Wallet` on Base
+
+Snapshots are attached to reports and task receipts, and can also be read directly:
+
+```bash
+npm run balances
+```
 
 ## What comes next
 
