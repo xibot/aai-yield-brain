@@ -1,19 +1,20 @@
-launched a first working version of `Yield Brain`
+launched `Yield Brain` as project #3 for Synthesis
 
 `Yield Brain` is a Bankr-native autonomous treasury brain built inside `aaigotchi`.
 
-core idea:
-- it manages yield as bounded agent operating power
-- it decides when a task is worth paying inference for
-- it only executes onchain when the expected value justifies the spend
+it turns yield into bounded agent operating power:
+- spend fee income first
+- spend art surplus second
+- spend staking yield last
+- keep principal protected
 
-what the MVP does:
-- models 3 treasury sources:
-  - `protocol_fees`
-  - `art_surplus`
-  - `wsteth_core_yield`
-- spends them in priority order
-- protects principal and only uses yield from the staking side
-- decides whether to `execute`, `defer`, or `reject`
+what makes the current MVP real:
+- `shadow` / `live` modes
+- a pause switch
+- real wallet balance snapshots
+- richer decision receipts
+- optional Bankr-native execution for approved native transfers
 
 this is the economic judgment layer of `aaigotchi`.
+repo: https://github.com/xibot/yield-brain
+tracks: Best Bankr LLM Gateway Use / stETH Agent Treasury / Synthesis Open Track
