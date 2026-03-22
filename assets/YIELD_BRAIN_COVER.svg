@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#05080d"/>
-      <stop offset="100%" stop-color="#0d1620"/>
+      <stop offset="0%" stop-color="#04070b"/>
+      <stop offset="100%" stop-color="#0d1722"/>
     </linearGradient>
     <pattern id="scan" width="8" height="8" patternUnits="userSpaceOnUse">
       <rect width="8" height="4" fill="rgba(255,255,255,0.015)"/>
@@ -10,38 +10,40 @@
   </defs>
 
   <rect width="1600" height="900" fill="url(#bg)"/>
-  <rect width="1600" height="900" fill="url(#scan)" opacity="0.35"/>
+  <rect width="1600" height="900" fill="url(#scan)" opacity="0.4"/>
   <rect x="56" y="56" width="1488" height="788" rx="28" fill="none" stroke="#2f455b" stroke-width="3"/>
 
   <text x="96" y="126" fill="#8fd3ff" font-family="Courier New, monospace" font-size="22">&gt; project_003 :: treasury_judgment_layer</text>
   <text x="96" y="188" fill="#f3fbff" font-family="Courier New, monospace" font-size="76" font-weight="700">YIELD BRAIN</text>
   <text x="98" y="228" fill="#9cc2dd" font-family="Courier New, monospace" font-size="24">Bankr-native autonomous treasury brain for bounded agent operating power</text>
 
-  <text x="126" y="348" fill="#c9f1ff" font-family="Courier New, monospace" font-size="31" xml:space="preserve">
-    <tspan x="126" dy="0">                         .-=========-.</tspan>
-    <tspan x="126" dy="40">                     .-=="  .-"""-.  "==-.</tspan>
-    <tspan x="126" dy="40">                  .-'     .'  _ _  '.     '-.</tspan>
-    <tspan x="126" dy="40">                .'       /   (o o)   \       '.</tspan>
-    <tspan x="126" dy="40">               /        |  .-.___.-.  |        \</tspan>
-    <tspan x="126" dy="40">              /         | /  /_ _\\ \ |         \</tspan>
-    <tspan x="126" dy="40">             ;          | \_/ /_\ \_/ |          ;</tspan>
-    <tspan x="126" dy="40">             |          |    /___\    |          |</tspan>
-    <tspan x="126" dy="40">             ;           \  |YIELD|  /           ;</tspan>
-    <tspan x="126" dy="40">              \           '.|BRAIN|.'           /</tspan>
-    <tspan x="126" dy="40">               '.           '-----'           .'</tspan>
-    <tspan x="126" dy="40">                 '-._                     _.-'</tspan>
-    <tspan x="126" dy="40">                      ""--.._______..--""</tspan>
+  <text x="118" y="330" fill="#c9f1ff" font-family="Courier New, monospace" font-size="34" xml:space="preserve">
+    <tspan x="118" dy="0">                            \\           //</tspan>
+    <tspan x="118" dy="38">                             \\         //</tspan>
+    <tspan x="118" dy="38">                              \\       //</tspan>
+    <tspan x="118" dy="38">                               \\     //</tspan>
+    <tspan x="118" dy="38">                                \\   //</tspan>
+    <tspan x="118" dy="38">                                 \\ //</tspan>
+    <tspan x="118" dy="38">                                  Y</tspan>
+    <tspan x="118" dy="38">                                  |</tspan>
+    <tspan x="118" dy="38">                                  |</tspan>
+    <tspan x="118" dy="38">                                  |</tspan>
+    <tspan x="118" dy="38">                           .------|------.</tspan>
+    <tspan x="118" dy="38">                        .--'  protocol_fees '--.</tspan>
+    <tspan x="118" dy="38">                     .-'     art_surplus        '-.</tspan>
+    <tspan x="118" dy="38">                  .-'      wsteth_core_yield       '-.</tspan>
   </text>
 
-  <rect x="960" y="286" width="504" height="418" rx="24" fill="#09121a" stroke="#284154" stroke-width="3"/>
-  <text x="1000" y="342" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; treasury_sources</text>
-  <text x="1000" y="392" fill="#f3fbff" font-family="Courier New, monospace" font-size="26">1. protocol_fees      - first spend priority</text>
-  <text x="1000" y="432" fill="#f3fbff" font-family="Courier New, monospace" font-size="26">2. art_surplus        - artist-net routed ops</text>
-  <text x="1000" y="472" fill="#f3fbff" font-family="Courier New, monospace" font-size="26">3. wsteth_core_yield  - yield only</text>
-  <text x="1000" y="540" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; operating_controls</text>
-  <text x="1000" y="590" fill="#89f0c4" font-family="Courier New, monospace" font-size="26">mode      :: shadow | live</text>
-  <text x="1000" y="628" fill="#89f0c4" font-family="Courier New, monospace" font-size="26">pause     :: policy switch</text>
-  <text x="1000" y="666" fill="#89f0c4" font-family="Courier New, monospace" font-size="26">receipts  :: wallet + source deltas</text>
+  <rect x="972" y="286" width="484" height="418" rx="24" fill="#09121a" stroke="#284154" stroke-width="3"/>
+  <text x="1012" y="342" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; yield_sign_logic</text>
+  <text x="1012" y="394" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">source-aware treasury</text>
+  <text x="1012" y="434" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">spend priority routing</text>
+  <text x="1012" y="474" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">principal stays protected</text>
 
-  <text x="96" y="806" fill="#9cc2dd" font-family="Courier New, monospace" font-size="24">principal stays protected // yield becomes bounded agent operating power</text>
+  <text x="1012" y="546" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; controls</text>
+  <text x="1012" y="596" fill="#89f0c4" font-family="Courier New, monospace" font-size="25">mode      :: shadow | live</text>
+  <text x="1012" y="636" fill="#89f0c4" font-family="Courier New, monospace" font-size="25">pause     :: policy switch</text>
+  <text x="1012" y="676" fill="#89f0c4" font-family="Courier New, monospace" font-size="25">receipts  :: wallet + source deltas</text>
+
+  <text x="96" y="808" fill="#9cc2dd" font-family="Courier New, monospace" font-size="24">yield becomes bounded agent operating power // execution only when economics justify the spend</text>
 </svg>
