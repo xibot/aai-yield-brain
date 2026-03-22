@@ -4,6 +4,12 @@
 
 This project is a strong candidate for a third Synthesis / Bankr submission because it is about **agent economics**, not just agent action. The core question is simple: an agent should not only know how to act onchain; it should know when thinking and acting are worth paying for.
 
+## Public repos
+
+- primary: `xibot/yield-brain`
+- mirror: `aaigotchi/yield-brain`
+- gitlab: `aaigotchi/yield-brain`
+
 ## Core idea
 
 Inside `aaigotchi`, we separate three concerns:
