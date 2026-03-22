@@ -1,6 +1,6 @@
-# AAi Yield Brain
+# Yield Brain
 
-`AAi Yield Brain` is a Bankr-native autonomous treasury brain that turns yield into bounded agent operating power. It is the economic judgment layer inside `aaigotchi`: it manages yield, decides when a task is worth paying inference for, and only executes onchain when the expected value justifies the spend.
+`Yield Brain` is a Bankr-native autonomous treasury brain that turns yield into bounded agent operating power. It is the economic judgment layer inside `aaigotchi`: it manages yield, decides when a task is worth paying inference for, and only executes onchain when the expected value justifies the spend.
 
 This project is a strong candidate for a third Synthesis / Bankr submission because it is about **agent economics**, not just agent action. The core question is simple: an agent should not only know how to act onchain; it should know when thinking and acting are worth paying for.
 
@@ -9,7 +9,7 @@ This project is a strong candidate for a third Synthesis / Bankr submission beca
 Inside `aaigotchi`, we separate three concerns:
 
 1. `aaigotchi` is the agent identity and goal layer.
-2. `AAi Yield Brain` is the economic judgment layer.
+2. `Yield Brain` is the economic judgment layer.
 3. `Bankr` is the execution rail.
 
 So the flow becomes:
@@ -24,7 +24,7 @@ So the flow becomes:
 
 Most agent demos assume inference and execution are free.
 
-`AAi Yield Brain` treats both as capital allocation problems:
+`Yield Brain` treats both as capital allocation problems:
 
 - model calls cost money
 - gas costs money
@@ -141,10 +141,10 @@ The natural next steps are:
 1. add live yield-source readers for `wstETH`, protocol fees, or agent revenue
 2. add swap execution for approved treasury rebalances
 3. add rolling treasury state instead of demo snapshots
-4. connect `AAi Yield Brain` directly to `Rare SynETHsis` and future `aaigotchi` operations
+4. connect `Yield Brain` directly to `Rare SynETHsis` and future `aaigotchi` operations
 
 That would complete the trilogy:
 
 - `aaigotchi-wallet-agency` = agency
 - `Rare SynETHsis` = culture
-- `AAi Yield Brain` = sustainability
+- `Yield Brain` = sustainability

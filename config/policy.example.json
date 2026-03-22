@@ -1,5 +1,5 @@
 {
-  "project": "AAi Yield Brain",
+  "project": "Yield Brain",
   "reserveFloorUsd": 5000,
   "minYieldBufferUsd": 12,
   "dailyInferenceBudgetUsd": 1.5,

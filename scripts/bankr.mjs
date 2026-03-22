@@ -149,7 +149,7 @@ export async function broadcastApprovedTask(task, decision) {
     to: task.action.recipient,
     chainId: Number(task.action.chainId),
     valueWei: ethToWei(task.action.valueEth),
-    description: `AAi Yield Brain: ${task.goal}`,
+    description: `Yield Brain: ${task.goal}`,
     waitForConfirmation: true
   });
 

@@ -48,7 +48,7 @@ const report = {
 
 writeJson(outPath, report);
 
-console.log(`AAi Yield Brain demo complete: ${report.totals.executed} execute / ${report.totals.deferred} defer / ${report.totals.rejected} reject`);
+console.log(`Yield Brain demo complete: ${report.totals.executed} execute / ${report.totals.deferred} defer / ${report.totals.rejected} reject`);
 console.log(`Opening yield available: $${Number(report.openingTreasury.yieldAvailableUsd).toFixed(2)}`);
 console.log(`Closing yield available: $${Number(report.closingTreasury.yieldAvailableUsd).toFixed(2)}`);
 console.log(`Opening yield sources: ${(report.openingTreasury.sources ?? []).map((source) => `${source.id}=${Number(source.spendableYieldUsd).toFixed(2)}`).join(", ")}`);
