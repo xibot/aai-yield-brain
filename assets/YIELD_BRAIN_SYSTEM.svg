@@ -1,41 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
-  <rect width="1200" height="1200" fill="#0a0f14"/>
-  <text x="74" y="110" fill="#f4f7fb" font-family="Menlo, Monaco, Consolas, monospace" font-size="64">Yield Brain</text>
-  <text x="76" y="154" fill="#8db4d8" font-family="Menlo, Monaco, Consolas, monospace" font-size="24">economic judgment layer inside aaigotchi</text>
+  <rect width="1200" height="1200" fill="#071019"/>
+  <rect x="42" y="42" width="1116" height="1116" rx="24" fill="none" stroke="#2f455b" stroke-width="3"/>
 
-  <rect x="80" y="230" width="320" height="150" rx="18" fill="#142231"/>
-  <text x="110" y="286" fill="#f4f7fb" font-family="Menlo, Monaco, Consolas, monospace" font-size="26">protocol_fees</text>
-  <text x="110" y="326" fill="#8db4d8" font-family="Menlo, Monaco, Consolas, monospace" font-size="20">first spend priority</text>
+  <text x="86" y="118" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; Yield Brain :: system_map</text>
+  <text x="86" y="178" fill="#f3fbff" font-family="Courier New, monospace" font-size="64" font-weight="700">YIELD BRAIN</text>
 
-  <rect x="80" y="418" width="320" height="150" rx="18" fill="#142231"/>
-  <text x="110" y="474" fill="#f4f7fb" font-family="Menlo, Monaco, Consolas, monospace" font-size="26">art_surplus</text>
-  <text x="110" y="514" fill="#8db4d8" font-family="Menlo, Monaco, Consolas, monospace" font-size="20">25% artist-net routed into ops</text>
+  <text x="94" y="288" fill="#c9f1ff" font-family="Courier New, monospace" font-size="28" xml:space="preserve">
+    <tspan x="94" dy="0">  protocol_fees      ----\</tspan>
+    <tspan x="94" dy="36">  art_surplus        -----&gt;  [ BRAIN ]  -----&gt;  execute</tspan>
+    <tspan x="94" dy="36">  wsteth_core_yield  ----/                     defer</tspan>
+    <tspan x="94" dy="36">                                              reject</tspan>
+  </text>
 
-  <rect x="80" y="606" width="320" height="150" rx="18" fill="#142231"/>
-  <text x="110" y="662" fill="#f4f7fb" font-family="Menlo, Monaco, Consolas, monospace" font-size="26">wsteth_core_yield</text>
-  <text x="110" y="702" fill="#8db4d8" font-family="Menlo, Monaco, Consolas, monospace" font-size="20">yield only, principal protected</text>
+  <rect x="88" y="422" width="1024" height="230" rx="20" fill="#0b141d" stroke="#284154" stroke-width="3"/>
+  <text x="126" y="484" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; treasury_policy</text>
+  <text x="126" y="534" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- spend fee income first</text>
+  <text x="126" y="574" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- spend art surplus second</text>
+  <text x="126" y="614" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- spend staking yield last</text>
+  <text x="126" y="654" fill="#89f0c4" font-family="Courier New, monospace" font-size="25">- keep principal protected</text>
 
-  <rect x="470" y="308" width="280" height="370" rx="28" fill="#0d141b" stroke="#3f6f9e" stroke-width="4"/>
-  <text x="520" y="398" fill="#f4f7fb" font-family="Menlo, Monaco, Consolas, monospace" font-size="42">BRAIN</text>
-  <text x="510" y="468" fill="#7cd4b4" font-family="Menlo, Monaco, Consolas, monospace" font-size="22">mode control</text>
-  <text x="510" y="506" fill="#7cd4b4" font-family="Menlo, Monaco, Consolas, monospace" font-size="22">pause switch</text>
-  <text x="510" y="544" fill="#7cd4b4" font-family="Menlo, Monaco, Consolas, monospace" font-size="22">wallet reader</text>
-  <text x="510" y="582" fill="#7cd4b4" font-family="Menlo, Monaco, Consolas, monospace" font-size="22">policy validator</text>
-  <text x="510" y="620" fill="#7cd4b4" font-family="Menlo, Monaco, Consolas, monospace" font-size="22">receipts</text>
-
-  <rect x="828" y="260" width="292" height="116" rx="18" fill="#143122"/>
-  <text x="874" y="332" fill="#c8f5df" font-family="Menlo, Monaco, Consolas, monospace" font-size="32">execute</text>
-
-  <rect x="828" y="432" width="292" height="116" rx="18" fill="#302414"/>
-  <text x="892" y="504" fill="#ffe1ad" font-family="Menlo, Monaco, Consolas, monospace" font-size="32">defer</text>
-
-  <rect x="828" y="604" width="292" height="116" rx="18" fill="#34161a"/>
-  <text x="884" y="676" fill="#ffc2cc" font-family="Menlo, Monaco, Consolas, monospace" font-size="32">reject</text>
-
-  <path d="M400 305 C430 305 440 330 470 360" fill="none" stroke="#3f6f9e" stroke-width="5"/>
-  <path d="M400 493 C430 493 440 493 470 493" fill="none" stroke="#3f6f9e" stroke-width="5"/>
-  <path d="M400 681 C430 681 440 656 470 626" fill="none" stroke="#3f6f9e" stroke-width="5"/>
-  <path d="M750 493 C780 493 798 493 828 493" fill="none" stroke="#3f6f9e" stroke-width="5"/>
-
-  <text x="78" y="1040" fill="#8db4d8" font-family="Menlo, Monaco, Consolas, monospace" font-size="22">Tracks: Bankr LLM Gateway Use • stETH Agent Treasury • Synthesis Open Track</text>
+  <rect x="88" y="706" width="1024" height="316" rx="20" fill="#0b141d" stroke="#284154" stroke-width="3"/>
+  <text x="126" y="768" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; mvp_features</text>
+  <text x="126" y="820" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- shadow / live operating modes</text>
+  <text x="126" y="860" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- policy pause switch</text>
+  <text x="126" y="900" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- real wallet balance snapshots</text>
+  <text x="126" y="940" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- richer decision receipts with source deltas</text>
+  <text x="126" y="990" fill="#89f0c4" font-family="Courier New, monospace" font-size="24">tracks :: Bankr LLM Gateway Use | stETH Agent Treasury | Synthesis Open Track</text>
 </svg>
