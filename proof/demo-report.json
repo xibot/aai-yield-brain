@@ -1,6 +1,6 @@
 {
   "project": "Yield Brain",
-  "generatedAt": "2026-03-22T01:04:44.633Z",
+  "generatedAt": "2026-03-22T01:29:41.450Z",
   "policyPath": "/home/ubuntu/aai-yield-brain/config/policy.example.json",
   "scenarioPath": "/home/ubuntu/aai-yield-brain/examples/demo-scenario.json",
   "openingTreasury": {
@@ -97,7 +97,7 @@
   },
   "decisions": [
     {
-      "decidedAt": "2026-03-22T01:04:44.632Z",
+      "decidedAt": "2026-03-22T01:29:41.450Z",
       "taskId": "yb-001",
       "taskType": "fund_operation",
       "decision": "reject",
@@ -211,12 +211,12 @@
         "kind": "native-transfer",
         "chainId": 8453,
         "asset": "ETH",
-        "recipient": "0x1111111111111111111111111111111111111111",
+        "recipient": "0x8BE974bC760bea450A733c58B051c14F723ce79C",
         "valueEth": "0.0002"
       }
     },
     {
-      "decidedAt": "2026-03-22T01:04:44.632Z",
+      "decidedAt": "2026-03-22T01:29:41.450Z",
       "taskId": "yb-002",
       "taskType": "fund_art_action",
       "decision": "execute",
@@ -335,7 +335,7 @@
       }
     },
     {
-      "decidedAt": "2026-03-22T01:04:44.632Z",
+      "decidedAt": "2026-03-22T01:29:41.450Z",
       "taskId": "yb-003",
       "taskType": "swap",
       "decision": "reject",
@@ -454,7 +454,7 @@
       }
     },
     {
-      "decidedAt": "2026-03-22T01:04:44.633Z",
+      "decidedAt": "2026-03-22T01:29:41.450Z",
       "taskId": "yb-004",
       "taskType": "fund_operation",
       "decision": "defer",
@@ -568,7 +568,7 @@
         "kind": "native-transfer",
         "chainId": 8453,
         "asset": "ETH",
-        "recipient": "0x1111111111111111111111111111111111111111",
+        "recipient": "0x8BE974bC760bea450A733c58B051c14F723ce79C",
         "valueEth": "0.0022"
       }
     }

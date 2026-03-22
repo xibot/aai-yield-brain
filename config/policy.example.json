@@ -7,16 +7,24 @@
   "maxSingleActionUsd": 8,
   "minNetValueUsd": 1.5,
   "minValueMultiple": 1.25,
-  "allowTaskTypes": ["fund_operation", "fund_art_action", "swap"],
-  "allowAssets": ["ETH", "USDC", "wstETH"],
+  "allowTaskTypes": [
+    "fund_operation",
+    "fund_art_action",
+    "swap"
+  ],
+  "allowAssets": [
+    "ETH",
+    "USDC",
+    "wstETH"
+  ],
   "allowRecipients": [
     {
       "label": "Rare SynETHsis Ops",
       "address": "0xb96B48a6B190A9d509cE9312654F34E9770F2110"
     },
     {
-      "label": "AAi Treasury Hot Wallet",
-      "address": "0x1111111111111111111111111111111111111111"
+      "label": "fxclaw / agentpaint Ops Wallet",
+      "address": "0x8BE974bC760bea450A733c58B051c14F723ce79C"
     }
   ],
   "modelTiers": [
