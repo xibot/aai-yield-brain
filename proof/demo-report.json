@@ -1,6 +1,6 @@
 {
   "project": "Yield Brain",
-  "generatedAt": "2026-03-22T01:29:41.450Z",
+  "generatedAt": "2026-03-22T01:37:17.274Z",
   "policyPath": "/home/ubuntu/aai-yield-brain/config/policy.example.json",
   "scenarioPath": "/home/ubuntu/aai-yield-brain/examples/demo-scenario.json",
   "openingTreasury": {
@@ -97,7 +97,7 @@
   },
   "decisions": [
     {
-      "decidedAt": "2026-03-22T01:29:41.450Z",
+      "decidedAt": "2026-03-22T01:37:17.274Z",
       "taskId": "yb-001",
       "taskType": "fund_operation",
       "decision": "reject",
@@ -216,7 +216,7 @@
       }
     },
     {
-      "decidedAt": "2026-03-22T01:29:41.450Z",
+      "decidedAt": "2026-03-22T01:37:17.274Z",
       "taskId": "yb-002",
       "taskType": "fund_art_action",
       "decision": "execute",
@@ -335,7 +335,7 @@
       }
     },
     {
-      "decidedAt": "2026-03-22T01:29:41.450Z",
+      "decidedAt": "2026-03-22T01:37:17.274Z",
       "taskId": "yb-003",
       "taskType": "swap",
       "decision": "reject",
@@ -454,7 +454,7 @@
       }
     },
     {
-      "decidedAt": "2026-03-22T01:29:41.450Z",
+      "decidedAt": "2026-03-22T01:37:17.274Z",
       "taskId": "yb-004",
       "taskType": "fund_operation",
       "decision": "defer",
