@@ -33,6 +33,18 @@ Most agent demos assume inference and execution are free.
 
 The goal is a self-funding agent that lives off bounded operating yield instead of touching protected principal.
 
+## Yield-source model
+
+The treasury is now source-aware instead of flat.
+
+The demo treasury is derived from three explicit sources:
+
+- `protocol_fees`: Bankr-native fee income routed back into the agent treasury
+- `art_surplus`: 25% of artist-net `Rare SynETHsis` proceeds routed into ops
+- `wsteth_core_yield`: protected staked principal with only the yield side spendable
+
+Yield is spent in priority order, so the system consumes fee income first, art surplus second, and protected staking yield last.
+
 ## Safety model
 
 This MVP is intentionally **not** a public prompt-to-wallet surface.
@@ -54,7 +66,7 @@ That means outside prompts can influence proposals later, but they do not automa
 
 The current MVP supports:
 
-- treasury snapshot input
+- source-aware treasury derivation
 - policy-driven task evaluation
 - three model tiers: `cheap`, `planner`, `critic`
 - three decisions: `execute`, `defer`, `reject`
@@ -65,8 +77,9 @@ The current MVP supports:
 ## Repo layout
 
 - `config/policy.example.json`: baseline treasury / policy rails
-- `examples/demo-scenario.json`: sample treasury state and tasks
-- `scripts/lib.mjs`: decision engine and budget math
+- `examples/demo-scenario.json`: sample yield sources and tasks
+- `scripts/lib.mjs`: decision engine and treasury math
+- `scripts/derive-treasury.mjs`: derive the current treasury from explicit sources
 - `scripts/bankr.mjs`: Bankr config + broadcast adapter
 - `scripts/run-demo.mjs`: queue demo that produces a full report
 - `scripts/run-task.mjs`: evaluate one task and optionally broadcast it
@@ -77,11 +90,12 @@ No dependencies are required for the local demo beyond Node.js 18+.
 
 ```bash
 cd /home/ubuntu/aai-yield-brain
+npm run treasury
 npm run demo
 npm run demo:proof
 ```
 
-That will evaluate the sample task queue and write a full report to `outputs/` or `proof/demo-report.json`.
+That will derive the current treasury and then evaluate the sample task queue into `outputs/` or `proof/demo-report.json`.
 
 ## Demo scenario
 
@@ -124,7 +138,7 @@ Current live constraint:
 
 The natural next steps are:
 
-1. add real yield source accounting (`wstETH`, protocol fees, or agent revenue)
+1. add live yield-source readers for `wstETH`, protocol fees, or agent revenue
 2. add swap execution for approved treasury rebalances
 3. add rolling treasury state instead of demo snapshots
 4. connect `AAi Yield Brain` directly to `Rare SynETHsis` and future `aaigotchi` operations

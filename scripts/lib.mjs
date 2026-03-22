@@ -53,6 +53,97 @@ export function parseArgs(argv) {
   return args;
 }
 
+function normalizeSource(source) {
+  return {
+    id: source.id,
+    type: source.type,
+    principalUsd: Number(source.principalUsd ?? 0),
+    protectedPrincipalUsd: Number(source.protectedPrincipalUsd ?? source.principalUsd ?? 0),
+    accruedYieldUsd: Number(source.accruedYieldUsd ?? 0),
+    spendableYieldUsd: Number(source.spendableYieldUsd ?? source.accruedYieldUsd ?? 0),
+    spendPriority: Number(source.spendPriority ?? 100),
+    note: source.note ?? ""
+  };
+}
+
+function recomputeTreasuryTotals(treasury) {
+  if (!Array.isArray(treasury.sources)) {
+    return treasury;
+  }
+
+  treasury.principalUsd = Number(
+    treasury.sources.reduce((sum, source) => sum + Number(source.principalUsd), 0).toFixed(4)
+  );
+  treasury.protectedPrincipalUsd = Number(
+    treasury.sources.reduce((sum, source) => sum + Number(source.protectedPrincipalUsd), 0).toFixed(4)
+  );
+  treasury.yieldAccruedUsd = Number(
+    treasury.sources.reduce((sum, source) => sum + Number(source.accruedYieldUsd), 0).toFixed(4)
+  );
+  treasury.yieldAvailableUsd = Number(
+    treasury.sources.reduce((sum, source) => sum + Number(source.spendableYieldUsd), 0).toFixed(4)
+  );
+  return treasury;
+}
+
+function spendFromSources(treasury, amountUsd) {
+  let remaining = Number(amountUsd);
+  if (!Array.isArray(treasury.sources) || remaining <= 0) {
+    treasury.yieldAccruedUsd = Number((Number(treasury.yieldAccruedUsd) - remaining).toFixed(4));
+    treasury.yieldAvailableUsd = Number((Number(treasury.yieldAvailableUsd) - remaining).toFixed(4));
+    return treasury;
+  }
+
+  const ordered = [...treasury.sources].sort((a, b) => Number(a.spendPriority) - Number(b.spendPriority));
+  for (const source of ordered) {
+    if (remaining <= 0) {
+      break;
+    }
+    const available = Number(source.spendableYieldUsd);
+    if (available <= 0) {
+      continue;
+    }
+    const take = Math.min(available, remaining);
+    source.spendableYieldUsd = Number((available - take).toFixed(4));
+    source.accruedYieldUsd = Number((Number(source.accruedYieldUsd) - take).toFixed(4));
+    remaining = Number((remaining - take).toFixed(4));
+  }
+
+  if (remaining > 0.0001) {
+    throw new Error(`Source allocation could not cover ${money(amountUsd)}`);
+  }
+
+  return recomputeTreasuryTotals(treasury);
+}
+
+export function deriveTreasuryState(scenario) {
+  if (scenario.treasury) {
+    return deepClone(scenario.treasury);
+  }
+
+  if (!scenario.treasuryModel) {
+    throw new Error("Scenario must include either `treasury` or `treasuryModel`");
+  }
+
+  const treasury = {
+    asOf: scenario.treasuryModel.asOf ?? new Date().toISOString(),
+    principalUsd: 0,
+    protectedPrincipalUsd: 0,
+    yieldAccruedUsd: 0,
+    yieldAvailableUsd: 0,
+    spentToday: deepClone(
+      scenario.treasuryModel.spentToday ?? {
+        inferenceUsd: 0,
+        executionUsd: 0
+      }
+    ),
+    sources: (scenario.treasuryModel.sources ?? []).map(normalizeSource)
+  };
+
+  treasury.sources.sort((a, b) => Number(a.spendPriority) - Number(b.spendPriority));
+  return recomputeTreasuryTotals(treasury);
+}
+
 export function resolveModelTier(policy, task) {
   const totalPlannedSpendUsd = Number(task.maxSpendUsd) + Number(task.expectedGasUsd);
   let minConfidence = 0.46;
@@ -201,14 +292,14 @@ export function evaluateTask(policy, treasury, task) {
 export function applyDecision(treasury, decision) {
   const next = deepClone(treasury);
   next.spentToday.inferenceUsd = Number((Number(next.spentToday.inferenceUsd) + Number(decision.selectedModel.costUsd)).toFixed(4));
-  next.yieldAvailableUsd = Number((Number(next.yieldAvailableUsd) - Number(decision.selectedModel.costUsd)).toFixed(4));
+  spendFromSources(next, Number(decision.selectedModel.costUsd));
 
   if (decision.decision === "execute") {
     next.spentToday.executionUsd = Number((Number(next.spentToday.executionUsd) + Number(decision.economics.executionCostUsd)).toFixed(4));
-    next.yieldAvailableUsd = Number((Number(next.yieldAvailableUsd) - Number(decision.economics.executionCostUsd)).toFixed(4));
+    spendFromSources(next, Number(decision.economics.executionCostUsd));
   }
 
-  return next;
+  return recomputeTreasuryTotals(next);
 }
 
 export function buildReceipt(decision, treasuryBefore, treasuryAfter) {

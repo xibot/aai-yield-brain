@@ -2,6 +2,7 @@ import path from "node:path";
 import {
   applyDecision,
   buildReceipt,
+  deriveTreasuryState,
   evaluateTask,
   parseArgs,
   projectRoot,
@@ -18,7 +19,7 @@ const outPath = path.resolve(root, args.out ?? `outputs/demo-${timestampSlug()}.
 
 const policy = readJson(policyPath);
 const scenario = readJson(scenarioPath);
-let treasury = JSON.parse(JSON.stringify(scenario.treasury));
+let treasury = deriveTreasuryState(scenario);
 
 const decisions = [];
 for (const task of scenario.tasks) {
@@ -34,7 +35,7 @@ const report = {
   generatedAt: new Date().toISOString(),
   policyPath,
   scenarioPath,
-  openingTreasury: scenario.treasury,
+  openingTreasury: deriveTreasuryState(scenario),
   closingTreasury: treasury,
   totals: {
     tasks: decisions.length,
@@ -50,6 +51,8 @@ writeJson(outPath, report);
 console.log(`AAi Yield Brain demo complete: ${report.totals.executed} execute / ${report.totals.deferred} defer / ${report.totals.rejected} reject`);
 console.log(`Opening yield available: $${Number(report.openingTreasury.yieldAvailableUsd).toFixed(2)}`);
 console.log(`Closing yield available: $${Number(report.closingTreasury.yieldAvailableUsd).toFixed(2)}`);
+console.log(`Opening yield sources: ${(report.openingTreasury.sources ?? []).map((source) => `${source.id}=${Number(source.spendableYieldUsd).toFixed(2)}`).join(", ")}`);
+console.log(`Closing yield sources: ${(report.closingTreasury.sources ?? []).map((source) => `${source.id}=${Number(source.spendableYieldUsd).toFixed(2)}`).join(", ")}`);
 for (const entry of report.decisions) {
   console.log(`- ${entry.taskId}: ${entry.decision.toUpperCase()} :: ${entry.summary}`);
 }

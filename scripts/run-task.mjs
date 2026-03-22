@@ -3,6 +3,7 @@ import { broadcastApprovedTask } from "./bankr.mjs";
 import {
   applyDecision,
   buildReceipt,
+  deriveTreasuryState,
   evaluateTask,
   parseArgs,
   projectRoot,
@@ -28,7 +29,7 @@ if (!task) {
   throw new Error(`Task ${taskId} not found in ${scenarioPath}`);
 }
 
-const treasuryBefore = JSON.parse(JSON.stringify(scenario.treasury));
+const treasuryBefore = deriveTreasuryState(scenario);
 const decision = evaluateTask(policy, treasuryBefore, task);
 const treasuryAfter = applyDecision(treasuryBefore, decision);
 const receipt = buildReceipt(decision, treasuryBefore, treasuryAfter);
@@ -42,6 +43,7 @@ writeJson(outPath, receipt);
 
 console.log(`${task.id}: ${decision.decision.toUpperCase()}`);
 console.log(decision.summary);
+console.log(`Sources after decision: ${(treasuryAfter.sources ?? []).map((source) => `${source.id}=${Number(source.spendableYieldUsd).toFixed(2)}`).join(", ")}`);
 if (receipt.liveExecution?.transactionHash) {
   console.log(`Broadcast tx: ${receipt.liveExecution.transactionHash}`);
 }

@@ -1,9 +1,38 @@
 {
-  "treasury": {
+  "treasuryModel": {
     "asOf": "2026-03-21T18:30:00Z",
-    "principalUsd": 5000,
-    "yieldAccruedUsd": 58.4,
-    "yieldAvailableUsd": 16.9,
+    "sources": [
+      {
+        "id": "protocol_fees",
+        "type": "protocol-fees",
+        "principalUsd": 0,
+        "protectedPrincipalUsd": 0,
+        "accruedYieldUsd": 4.8,
+        "spendableYieldUsd": 4.8,
+        "spendPriority": 1,
+        "note": "Execution fees routed back into the agent treasury."
+      },
+      {
+        "id": "art_surplus",
+        "type": "art-proceeds",
+        "principalUsd": 0,
+        "protectedPrincipalUsd": 0,
+        "accruedYieldUsd": 2.2,
+        "spendableYieldUsd": 2.2,
+        "spendPriority": 2,
+        "note": "25% of artist-net art proceeds routed into operating capital."
+      },
+      {
+        "id": "wsteth_core_yield",
+        "type": "wstETH-yield",
+        "principalUsd": 5000,
+        "protectedPrincipalUsd": 5000,
+        "accruedYieldUsd": 11.4,
+        "spendableYieldUsd": 9.9,
+        "spendPriority": 3,
+        "note": "Protected principal stays locked; only the yield side is spendable."
+      }
+    ],
     "spentToday": {
       "inferenceUsd": 0.12,
       "executionUsd": 4.25

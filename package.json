@@ -5,6 +5,7 @@
   "description": "Bankr-native autonomous treasury brain for aaigotchi",
   "type": "module",
   "scripts": {
+    "treasury": "node scripts/derive-treasury.mjs",
     "demo": "node scripts/run-demo.mjs",
     "demo:proof": "node scripts/run-demo.mjs --out proof/demo-report.json",
     "task": "node scripts/run-task.mjs"
