@@ -2,28 +2,45 @@
   <rect width="1200" height="1200" fill="#071019"/>
   <rect x="42" y="42" width="1116" height="1116" rx="24" fill="none" stroke="#2f455b" stroke-width="3"/>
 
-  <text x="86" y="118" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; Yield Brain :: system_map</text>
+  <text x="86" y="118" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; Yield Brain :: treasury_system</text>
   <text x="86" y="178" fill="#f3fbff" font-family="Courier New, monospace" font-size="64" font-weight="700">YIELD BRAIN</text>
 
-  <text x="94" y="288" fill="#c9f1ff" font-family="Courier New, monospace" font-size="28" xml:space="preserve">
-    <tspan x="94" dy="0">  protocol_fees      ----\</tspan>
-    <tspan x="94" dy="36">  art_surplus        -----&gt;  [ BRAIN ]  -----&gt;  execute</tspan>
-    <tspan x="94" dy="36">  wsteth_core_yield  ----/                     defer</tspan>
-    <tspan x="94" dy="36">                                              reject</tspan>
+  <text x="108" y="274" fill="#c9f1ff" font-family="Courier New, monospace" font-size="28" xml:space="preserve">
+    <tspan x="108" dy="0">       protocol_fees      -------.</tspan>
+    <tspan x="108" dy="34">       art_surplus        --------+--&gt;  [ VAULT ]</tspan>
+    <tspan x="108" dy="34">       wsteth_core_yield  -------'         |</tspan>
+    <tspan x="108" dy="34">                                          +--&gt; execute</tspan>
+    <tspan x="108" dy="34">                                          +--&gt; defer</tspan>
+    <tspan x="108" dy="34">                                          '--&gt; reject</tspan>
   </text>
 
-  <rect x="88" y="422" width="1024" height="230" rx="20" fill="#0b141d" stroke="#284154" stroke-width="3"/>
-  <text x="126" y="484" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; treasury_policy</text>
-  <text x="126" y="534" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- spend fee income first</text>
-  <text x="126" y="574" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- spend art surplus second</text>
-  <text x="126" y="614" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- spend staking yield last</text>
-  <text x="126" y="654" fill="#89f0c4" font-family="Courier New, monospace" font-size="25">- keep principal protected</text>
+  <text x="146" y="486" fill="#f3fbff" font-family="Courier New, monospace" font-size="26" xml:space="preserve">
+    <tspan x="146" dy="0">                 _____________________________</tspan>
+    <tspan x="146" dy="34">            .-""|                             |""-.</tspan>
+    <tspan x="146" dy="34">          .'    |      YIELD BRAIN VAULT      |    '.</tspan>
+    <tspan x="146" dy="34">         /      |_____________________________|      \</tspan>
+    <tspan x="146" dy="34">        /      /_______________________________\      \</tspan>
+    <tspan x="146" dy="34">       ;      |   ________        ________      |      ;</tspan>
+    <tspan x="146" dy="34">       |      |  |  LOCK  |      | FLOW  |      |      |</tspan>
+    <tspan x="146" dy="34">       |      |  |________|      |______|      |      |</tspan>
+    <tspan x="146" dy="34">       |      |                                   ____ |</tspan>
+    <tspan x="146" dy="34">       |      |        .-----------------.       / __ \|</tspan>
+    <tspan x="146" dy="34">       |      |       /   principal      \     | |  | ||</tspan>
+    <tspan x="146" dy="34">       |      |      |    protected       |    | |$$| ||</tspan>
+    <tspan x="146" dy="34">       |      |       \   yield spend     /     | |__| ||</tspan>
+    <tspan x="146" dy="34">       |      |        '-----------------'       \____/|</tspan>
+    <tspan x="146" dy="34">       ;      |________________________________________|</tspan>
+    <tspan x="146" dy="34">        \                                                /</tspan>
+    <tspan x="146" dy="34">         '.                                            .'</tspan>
+    <tspan x="146" dy="34">           '-.__                                  __.-'</tspan>
+    <tspan x="146" dy="34">                '""------------------------------""'</tspan>
+  </text>
 
-  <rect x="88" y="706" width="1024" height="316" rx="20" fill="#0b141d" stroke="#284154" stroke-width="3"/>
-  <text x="126" y="768" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; mvp_features</text>
-  <text x="126" y="820" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- shadow / live operating modes</text>
-  <text x="126" y="860" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- policy pause switch</text>
-  <text x="126" y="900" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- real wallet balance snapshots</text>
-  <text x="126" y="940" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">- richer decision receipts with source deltas</text>
-  <text x="126" y="990" fill="#89f0c4" font-family="Courier New, monospace" font-size="24">tracks :: Bankr LLM Gateway Use | stETH Agent Treasury | Synthesis Open Track</text>
+  <rect x="88" y="796" width="1024" height="146" rx="20" fill="#0b141d" stroke="#284154" stroke-width="3"/>
+  <text x="126" y="854" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; treasury_policy</text>
+  <text x="126" y="900" fill="#f3fbff" font-family="Courier New, monospace" font-size="25">protocol_fees -&gt; art_surplus -&gt; wsteth_core_yield  //  principal stays protected</text>
+
+  <rect x="88" y="968" width="1024" height="146" rx="20" fill="#0b141d" stroke="#284154" stroke-width="3"/>
+  <text x="126" y="1026" fill="#8fd3ff" font-family="Courier New, monospace" font-size="28">&gt; mvp_features</text>
+  <text x="126" y="1072" fill="#f3fbff" font-family="Courier New, monospace" font-size="24">shadow/live modes  |  pause switch  |  wallet snapshots  |  richer receipts</text>
 </svg>
